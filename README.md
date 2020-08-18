@@ -5,7 +5,7 @@ Wheatlo is an object detector for wheat head. The image above should give you a 
 Wheatlo was created by modifying YOLOv3. If you are not familiar with YOLOv3, I would recommend Ayoosh Kathuria's tutorial on the subject (https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/).
 
 ### Feature Extractor
-Wheatlo's feature extractor has the same structure as Darknet-53, except the final layer has only 2 outputs. It is a binary classifier that tells us if an image has wheat heads in it or not.
+Wheatlo's feature extractor has the same architecture as Darknet-53, except the final layer has only 2 outputs. It is a binary classifier that tells us if an image has wheat heads in it or not. 
 
 
 ### Detector
