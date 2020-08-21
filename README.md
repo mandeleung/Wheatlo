@@ -21,24 +21,27 @@ You can find the code for training the feature extractor in train_extractor.ipyn
 ### Detector
 Wheatlo has almost identical architecture as YOLOv3. The differences are all in the detection layers and are detailed below:
 
-1. YOLOv3 has 3 detection layers with each one supposedly can handle a particular resolution better than the others. Wheatlo has only 1 detection layer. It is partly due to laziness in implementation and partly because, as I glanced through the training images, there was not that much varations in the sizes of the wheat heads and all the images are of the same resolution, 1024 x 1024.
+<ol>
+<li>YOLOv3 has 3 detection layers with each one supposedly can handle a particular resolution better than the others. Wheatlo has only 1 detection layer. It is partly due to laziness in implementation and partly because, as I glanced through the training images, there was not that much varations in the sizes of the wheat heads and all the images are of the same resolution, 1024 x 1024.
+</li>
 
-2. YOLOv3 has 9 anchor boxes, and each detection layer uses three of them. They are of the dimensions:
+<li>YOLOv3 has 9 anchor boxes, and each detection layer uses three of them. They are of the dimensions:
 
-[10,13],  [16,30],  [33,23],  [30,61],  [62,45],  [59,119],  [116,90],  [156,198],  [373,326]
-
+<p align="center">[10,13],  [16,30],  [33,23],  [30,61],  [62,45],  [59,119],  [116,90],  [156,198],  [373,326]</p>
 In wheatlo, there is only 1 detection layer but it uses 6 anchor boxes. They are of the dimensions:
 
-[35,35],  [30,10],  [20,40], [62,45],  [59,119],  [116,90],  [156,198],  [373,326]
+<p align="center">[21,24],  [28,28],  [36,31], [49,34],  [12,23], [76,40]</p>
 
 I chose these dimensions by inspecting the ground truth bounding boxes of the training images. The added options reflect the typical dimensions of the wheat heads in the images.
+</li>
+<li>In YOLOv3, the detection layer's feature map has a depth of 85 x 3, which corresponds to the 85 attributes of each of the 3 potential bounding boxes. The 85 attributes include the 4 bounding box coordinates, an objectness score, and the class probablities of the 80 objects that YOLOv3 is capable of detecting.
 
-3. In YOLOv3, the detection layer's feature map has a depth of 85 x 3, which corresponds to the 85 attributes of each of the 3 potential bounding boxes. The 85 attributes include the 4 bounding box coordinates, an objectness score, and the class probablities of the 80 objects that YOLOv3 is capable of detecting.
-
-![YOLOv3 Feature maps attributes](/images/yolov3_feature_map.jpg)
+<img src="/images/yolov3_feature_map.jpg" alt="YOLOv3 Feature maps attributes" class="center">
 
 In Wheatlo, since there is only one class, I took away all the class probablities attributies. The detection layer's feature map therefore has a depth of 5 x 6, which corresponds to the 5 attributes of each of the 6 potential bounding boxes.
 
-![Wheatlo Feature maps attributes](/images/wheatlo_feature_map.jpg)
+<img src="/images/wheatlo_feature_map.jpg" alt="Wheatlo Feature maps attributes" class="center">
+</li>
+</ol>
 
 #### Train the  detector
