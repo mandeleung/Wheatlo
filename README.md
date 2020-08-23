@@ -1,4 +1,7 @@
 # Wheatlo
+
+<img src="/images/head_image.jpg" alt="Wheat heads detected by Wheatlo" class="center">
+
 Wheatlo is an object detector for wheat heads. The image above should give you a clear picture of what it does. It is based on YOLOv3. I created this implementation for Kaggle's Global Wheat Detection competition (https://www.kaggle.com/c/global-wheat-detection/overview), and used its dataset for training and validation. You can download the dataset from the competition's webpage.
 
 ## Key Differences from YOLOv3
@@ -28,11 +31,11 @@ Wheatlo has almost identical architecture as YOLOv3. The differences are all in 
 <li>YOLOv3 has 9 anchor boxes, and each detection layer uses three of them. They are of the dimensions:
 
 <p align="center">[10,13],  [16,30],  [33,23],  [30,61],  [62,45],  [59,119],  [116,90],  [156,198],  [373,326]</p>
-In wheatlo, there is only 1 detection layer but it uses 6 anchor boxes. They are of the dimensions:
+In wheatlo, there is only 1 detection layer but it uses 5 anchor boxes. They are of the dimensions:
 
-<p align="center">[21,24],  [28,28],  [36,31], [49,34],  [12,23], [76,40]</p>
+<p align="center">[21,24],  [36,31], [49,34],  [12,23], [76,40]</p>
 
-I chose these dimensions by inspecting the ground truth bounding boxes of the training images. The added options reflect the typical dimensions of the wheat heads in the images.
+I chose these dimensions by inspecting the ground truth bounding boxes of the training images. The anchor boxes should reflect the typical dimensions of the wheat heads in the images.
 </li>
 <li>In YOLOv3, the detection layer's feature map has a depth of 85 x 3, which corresponds to the 85 attributes of each of the 3 potential bounding boxes. The 85 attributes include the 4 bounding box coordinates, an objectness score, and the class probablities of the 80 objects that YOLOv3 is capable of detecting.
 
