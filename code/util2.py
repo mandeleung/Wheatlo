@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import math
 
 BOX_COLOR1c = (255,0,144) #hot pink
-BOX_COLOR2c = (169,13,255) #hot pink
+BOX_COLOR2c = (169,13,255) #bright purple
 BOX_COLOR1 = (1.,0.,0.565) #hot pink
 BOX_COLOR2 = (0.663,0.51,1.) #bright purple
 
@@ -236,9 +236,8 @@ def visualize_detector_output(output, data, img_dir, img_only_transform):
         mat = augmented['image']
         x[:,2] = x[:,2] - x[:,0]
         x[:,3] = x[:,3] - x[:,1]
-      
-        newfilename = "stage2_p-"+data.iloc[table_index]['image_id']
-        visualize(mat, x[:,:4], newfilename)     
+    
+        visualize(mat, x[:,:4])     
         
 def visualize_transformed_ground_truth(mat, bboxes, bboxes2):
     """
@@ -292,12 +291,13 @@ def visualize(mat, bboxes, filename = None):
         x_min, y_min, w, h = bboxes[i,:]
         x_min, x_max, y_min, y_max = int(x_min), int(x_min + w), int(y_min), int(y_min + h)
 
-        cv2.rectangle(mat, (x_min, y_min), (x_max, y_max), color=BOX_COLOR2c, thickness=2)
+        cv2.rectangle(mat, (x_min, y_min), (x_max, y_max), color=BOX_COLOR1c, thickness=1)
 
     plt.figure(figsize=(12, 12))
     plt.imshow(mat.get())    
     
-    cv2.imwrite(filename, cv2.cvtColor(mat, cv2.COLOR_RGB2BGR))
+    if filename:
+        cv2.imwrite(filename, cv2.cvtColor(mat, cv2.COLOR_RGB2BGR))
     
 def init_detector_weights(model):
     

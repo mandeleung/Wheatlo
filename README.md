@@ -64,6 +64,6 @@ The cost function has 4 components:
 
 I trained the detector in 2 stages. In the first stage, all 4 components of the cost function had equal weight, and I used only the first 1000 images in the training set to train the detector. About 50% (p=0.5) of the images were augmented. The reason for these choices is that I had some stability issues during the initial training. The error often runs down to NaN within a few iterations. However, with these choices, the training would often converge nicely. I trained for 20 epoches in the first stage.
 
-In the second stage, I modified the cost function by increasing the weights of the bounding box error to 1.5 and decreasing the weight of the predicted probablity of non-existent object to 0.8. I used the entire training set (except for the first 20 for real-time validation) which has 3353 images. About 80% of the images were augmented.
+In the second stage, I modified the cost function by increasing the weights of the bounding box error to 1.5 and decreasing the weight of the predicted probablity of non-existent object to 0.8. I used the entire training set (except for the first 20 for real-time validation) which has 3353 images. About 80% of the images were augmented. I trained for 40 epoches in the second stage.
 
 ## Final model
