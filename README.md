@@ -47,7 +47,7 @@ In Wheatlo, since there is only one class, I took away all the class probablitie
 </li>
 </ol>
 
-#### Train the  detector
+#### Train the Detector
 
 To train the detector, I used a SGD optimizer with a learning rate of 1e-5, a weight decay of 1e-3 and a momentum of 0.9.
 
@@ -68,13 +68,13 @@ In the second stage, I modified the cost function by increasing the weights of t
 
 You can find the training details in [train_detector.ipynb](/code/train_detector.ipynb) and [train_detector-continue.ipynb](/code/train_extractor-continue.ipynb).
 
-# Final model
+# Final Model
 You can build Wheatlo and see it in action by running [validate.ipynb](/code/validate.ipynb). 
 You can find the weight file [here](/code/wheatlo_detector_5anchors_stage2.pth).
 
 # Files
-- cfg/darknet_feature_extractor.cfg (feature extractor's architecture)
-- cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor)
+- cfg/darknet_feature_extractor.cfg (feature extractor's architecture, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
+- cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
 
 
 - code/darknet.py (create PyTorch models, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
@@ -89,3 +89,10 @@ You can find the weight file [here](/code/wheatlo_detector_5anchors_stage2.pth).
 - code/wheatlo_feature_extractor.pth (feature extractor's weight file)
 - code/wheatlo_detector_5anchors_stage1.pth (Wheatlo's weight file (initial))
 - code/wheatlo_detector_5anchors_stage2.pth (Wheatlo's weight file (final))
+
+# Files Not in This Repo
+The image for training as well as the original weight file of YOLOv3 are not included in this repo. However, you can find them through the following links:
+
+1. [Global wheat detection competition's training set and test set](https://www.kaggle.com/c/global-wheat-detection/overview)
+2. [COCO 2017 validation set](https://cocodataset.org/#download)
+3. [YOLOv3's weights](https://pjreddie.com/media/files/yolov3.weights)
