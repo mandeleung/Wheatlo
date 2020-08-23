@@ -70,11 +70,12 @@ You can find the training details in [train_detector.ipynb](/code/train_detector
 
 # Final model
 You can build Wheatlo and see it in action by running [validate.ipynb](/code/validate.ipynb). 
-The weight file is
+The weight file is [here](/code/wheatlo_detector_5anchors_stage2.pth).
 
 # Files
 - cfg/darknet_feature_extractor.cfg (feature extractor's architecture)
 - cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor)
+
 
 - code/darknet.py (create PyTorch models, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
 - code/train_detector.ipynb (1st stage training details of the detector)
@@ -83,3 +84,8 @@ The weight file is
 - code/util.py (utilities functions used in training, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
 - code/util2.py (utilities functions used in training)
 - code/validate.ipynb (build and try Wheatlo)
+
+
+- code/wheatlo_feature_extractor.pth
+- code/wheatlo_detector_5anchors_stage1.pth
+- code/wheatlo_detector_5anchors_stage2.pth
