@@ -73,8 +73,8 @@ You can build Wheatlo and see it in action by running [validate.ipynb](/code/val
 You can find the weight file [here](/code/wheatlo_detector_5anchors_stage2.pth).
 
 # Files
-- cfg/darknet_feature_extractor.cfg (feature extractor's architecture, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
-- cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg)
+- cfg/darknet_feature_extractor.cfg (feature extractor's architecture, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg))
+- cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor, originally forked from [here](https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg))
 
 
 - code/darknet.py (create PyTorch models, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
