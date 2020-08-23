@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import math
 
 BOX_COLOR1c = (255,0,144) #hot pink
+BOX_COLOR2c = (169,13,255) #hot pink
 BOX_COLOR1 = (1.,0.,0.565) #hot pink
 BOX_COLOR2 = (0.663,0.51,1.) #bright purple
 
@@ -149,7 +150,7 @@ def check_ground_truth_grid(ground_truth,stride):
     return result
    
 
-def yolo_loss(inp_dim, num_anchors, prediction, ground_truth, a1 = 1, b1 =1, c1 = 1, d1 = 1, verbose = False, CUDA = True):
+def yolo_loss(inp_dim, num_anchors, prediction, ground_truth, a1 = 1., b1 =1., c1 = 1., d1 = 1., normalize = False, verbose = False, CUDA = True):
     """
     Calculate detection loss.
     
@@ -180,6 +181,8 @@ def yolo_loss(inp_dim, num_anchors, prediction, ground_truth, a1 = 1, b1 =1, c1 
         bbox = ground_truth[i ,:, :4]
         
         has_obj_mask = torch.gt(ground_truth[i,:,2],0)
+        
+        num_boxes = has_obj_mask.sum()
              
         # Find which predicted box has the highest iou with the ground truth box    
         max_ind, max_iou = find_max_iou(bbox, prediction[i,:,:].view(total_grid, num_anchors, box_attr_length), has_obj_mask)
@@ -200,8 +203,11 @@ def yolo_loss(inp_dim, num_anchors, prediction, ground_truth, a1 = 1, b1 =1, c1 
             loss[o_b_mask] += c1*((prediction[i,o_b_mask,m*box_attr_length+4]-1.)**2)
          
             loss[~has_obj_mask] += d1*((prediction[i, ~has_obj_mask, 4+m*box_attr_length])**2)
-                                          
-        total_loss += loss.sum()    
+        
+        if normalize:
+            total_loss += loss.sum()/num_boxes
+        else:
+            total_loss += loss.sum()
         if verbose:    
             print(has_obj_mask.cpu().numpy())    
             print(loss.cpu().detach().numpy())            
@@ -231,7 +237,8 @@ def visualize_detector_output(output, data, img_dir, img_only_transform):
         x[:,2] = x[:,2] - x[:,0]
         x[:,3] = x[:,3] - x[:,1]
       
-        visualize(mat, x[:,:4])     
+        newfilename = "stage2_p-"+data.iloc[table_index]['image_id']
+        visualize(mat, x[:,:4], newfilename)     
         
 def visualize_transformed_ground_truth(mat, bboxes, bboxes2):
     """
@@ -269,7 +276,7 @@ def visualize_transformed_ground_truth(mat, bboxes, bboxes2):
     plt.figure(figsize=(12, 12))
     plt.imshow(mat.get()) 
 
-def visualize(mat, bboxes):
+def visualize(mat, bboxes, filename = None):
     """
     visualize predicted bounding boxes
      
@@ -285,10 +292,12 @@ def visualize(mat, bboxes):
         x_min, y_min, w, h = bboxes[i,:]
         x_min, x_max, y_min, y_max = int(x_min), int(x_min + w), int(y_min), int(y_min + h)
 
-        cv2.rectangle(mat, (x_min, y_min), (x_max, y_max), color=BOX_COLOR1c, thickness=1)
+        cv2.rectangle(mat, (x_min, y_min), (x_max, y_max), color=BOX_COLOR2c, thickness=2)
 
     plt.figure(figsize=(12, 12))
     plt.imshow(mat.get())    
+    
+    cv2.imwrite(filename, cv2.cvtColor(mat, cv2.COLOR_RGB2BGR))
     
 def init_detector_weights(model):
     

@@ -1,6 +1,6 @@
 # Wheatlo
 
-<img src="/images/head_image.png" alt="Wheat heads detected by Wheatlo" class="center">
+<img src="/images/An-object-detector-for-wheat-heads.png" alt="Wheat heads detected by Wheatlo" class="center">
 
 Wheatlo is an object detector for wheat heads. The image above should give you a clear picture of what it does. It is based on YOLOv3. I created this implementation for Kaggle's Global Wheat Detection competition (https://www.kaggle.com/c/global-wheat-detection/overview), and used its dataset for training and validation. You can download the dataset from the competition's webpage.
 
