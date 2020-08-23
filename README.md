@@ -5,7 +5,7 @@
 Wheatlo is an object detector for wheat heads. The image above should give you a clear picture of what it does. It is based on YOLOv3. I created this implementation for Kaggle's Global Wheat Detection competition (https://www.kaggle.com/c/global-wheat-detection/overview), and used its dataset for training and validation. You can download the dataset from the competition's webpage.
 
 ## Key Differences from YOLOv3
-Wheatlo was created by modifying YOLOv3. If you are not familiar with YOLOv3, I would recommend Ayoosh Kathuria's tutorial on the subject (https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/). It is a nicely written tutorial acompanied by a well-documented implementation of the YOLOv3 object detector.
+Wheatlo was created by modifying YOLOv3. If you are not familiar with YOLOv3, I would recommend Ayoosh Kathuria's tutorial on this subject (https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/). It is a nicely written tutorial acompanied by a well-documented implementation of the YOLOv3 object detector.
 
 ### Feature Extractor
 Wheatlo's feature extractor has the same architecture as Darknet-53 (the feature extractor of YOLOv3), except the final layer has only 2 outputs. It is a binary classifier that tells us if an image has wheat heads in it or not.
@@ -25,7 +25,7 @@ You can find the code for training the feature extractor in train_extractor.ipyn
 Wheatlo has almost identical architecture as YOLOv3. The differences are all in the detection layers and are detailed below:
 
 <ol>
-<li>YOLOv3 has 3 detection layers with each one supposedly can handle a particular resolution better than the others. Wheatlo has only 1 detection layer. It is partly due to laziness in implementation and partly because, as I glanced through the training images, there was not that much varations in the sizes of the wheat heads and all the images are of the same resolution, 1024 x 1024.
+<li>YOLOv3 has 3 detection layers with each one supposedly can handle a different resolution better than the others. Wheatlo has only 1 detection layer. It is partly due to laziness in implementation and partly because, as I glanced through the training images, there was not that much varations in the sizes of the wheat heads and all the images are of the same resolution, 1024 x 1024.
 </li>
 
 <li>YOLOv3 has 9 anchor boxes, and each detection layer uses three of them. They are of the dimensions:
