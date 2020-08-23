@@ -49,13 +49,21 @@ In Wheatlo, since there is only one class, I took away all the class probablitie
 
 #### Train the  detector
 
-To train the detector, I used a SGD optimizer with a learning rate of 1e-5, a weight decay of 1e-3 and a momentum of 0.9. I did not re-train the feature extractor's layers but only the layers appeneded to it. I initialized the convolutional layers with a Xavier uniform distribution. I used a batch size of 16 and an input dimension of 416.
+To train the detector, I used a SGD optimizer with a learning rate of 1e-5, a weight decay of 1e-3 and a momentum of 0.9.
 
-I trained the detector in two stages. In the first stage, I tried to minimize the following cost function:
+I used a batch size of 16 and an input dimension of 416.
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async
-          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">
-  </script>
+I did not re-train the feature extractor's layers but only the layers appeneded to it. I initialized the convolutional layers with a Xavier uniform distribution.
 
-<p>\[y = f(\mathbf{x})\]</p>
+The cost function has 4 components:
+
+1. the error of the predicted bounding box's center
+2. the error of the predicted bounding box height and width
+3. 1 - the predicted probablity that an object exists in a grid cell while it does
+4. the predicted probablity that an object exists in a grid cell while there is no object
+
+I trained the detector in 2 stages. In the first stage, all 4 components of the cost function had equal weight, and I used only the first 1000 images in the training set to train the detector. About 50% (p=0.5) of the images were augmented. The reason for these choices is that I had some stability issues during the initial training. The error often runs down to NaN within a few iterations. However, with these choices, the training would often converge nicely. I trained for 20 epoches in the first stage.
+
+In the second stage, I modified the cost function by increasing the weights of the bounding box error to 1.5 and decreasing the weight of the predicted probablity of non-existent object to 0.8. I used the entire training set (except for the first 20 for real-time validation) which has 3353 images. About 80% of the images were augmented.
+
+## Final model
