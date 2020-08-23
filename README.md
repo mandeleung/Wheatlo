@@ -22,7 +22,7 @@ To train the feature extractor, I initialized it with the weights of Darknet-53.
 You can find the code for training the feature extractor in train_extractor.ipynb.
 
 ### Detector
-Wheatlo has almost identical architecture as YOLOv3. The differences are all in the detection layers and are detailed below:
+Wheatlo has an almost identical architecture as YOLOv3. The differences are all in the detection layers and are detailed below:
 
 <ol>
 <li>YOLOv3 has 3 detection layers with each one supposedly can handle a different resolution better than the others. Wheatlo has only 1 detection layer. It is partly due to laziness in implementation and partly because, as I glanced through the training images, there was not that much varations in the sizes of the wheat heads and all the images are of the same resolution, 1024 x 1024.
@@ -66,4 +66,18 @@ I trained the detector in 2 stages. In the first stage, all 4 components of the 
 
 In the second stage, I modified the cost function by increasing the weights of the bounding box error to 1.5 and decreasing the weight of the predicted probablity of non-existent object to 0.8. I used the entire training set (except for the first 20 for real-time validation) which has 3353 images. About 80% of the images were augmented. I trained for 40 epoches in the second stage.
 
-## Final model
+# Final model
+You can build Wheatlo and see it in action by running . 
+The weight file is
+
+# Files
+- cfg/darknet_feature_extractor.cfg (feature extractor's architecture)
+- cfg/yolov3_detector.cfg  (detector's architecture, intended to be appended to the feature extractor)
+
+- code/darknet.py (create PyTorch models, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
+- code/train_detector.ipynb (1st stage training details of the detector)
+- code/train_detector-continue.ipynb (2nd stage training details of the detector)
+- code/train_extractor.ipynb (training details of the feature extractor)
+- code/util.py (utilities functions used in training, originally forked from [here](https://github.com/ayooshkathuria/YOLO_v3_tutorial_from_scratch))
+- code/util2.py (utilities functions used in training)
+- code/validate.ipynb (build and try Wheatlo)
