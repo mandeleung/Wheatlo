@@ -2,10 +2,10 @@
 
 <img src="/images/An-object-detector-for-wheat-heads.png" alt="Wheat heads detected by Wheatlo" class="center">
 
-Wheatlo is an object detector for wheat heads. The image above should give you a clear picture of what it does. It is based on YOLOv3. I created this implementation for Kaggle's Global Wheat Detection competition (https://www.kaggle.com/c/global-wheat-detection/overview), and used its dataset for training and validation. You can download the dataset from the competition's webpage.
+Wheatlo is an object detector for wheat heads. The image above should give you a clear picture of what it does. It is based on YOLOv3. I created this implementation for Kaggle's [Global Wheat Detection competition](https://www.kaggle.com/c/global-wheat-detection/overview), and used its dataset for training and validation. You can download the dataset from the competition's webpage.
 
 ## Key Differences from YOLOv3
-Wheatlo was created by modifying YOLOv3. If you are not familiar with YOLOv3, I would recommend Ayoosh Kathuria's tutorial on this subject (https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/). It is a nicely written tutorial acompanied by a well-documented implementation of the YOLOv3 object detector.
+Wheatlo was created by modifying YOLOv3. If you are not familiar with YOLOv3, I would recommend Ayoosh Kathuria's [tutorial](https://blog.paperspace.com/how-to-implement-a-yolo-object-detector-in-pytorch/) on this subject . It is a nicely written tutorial acompanied by a well-documented implementation of the YOLOv3 object detector.
 
 ### Feature Extractor
 Wheatlo's feature extractor has the same architecture as Darknet-53 (the feature extractor of YOLOv3), except the final layer has only 2 outputs. It is a binary classifier that tells us if an image has wheat heads in it or not.
@@ -19,7 +19,7 @@ Besides, Darknet-53 was trained on COCO and it has already learnt the features i
 
 To train the feature extractor, I initialized it with the weights of Darknet-53. The initial learning rate was 0.001. It is reduced by a factor of 10 every 10 epoches until it reaches 1e-6. I trained  it for 150 epoches. In retrospect, I probably did not have to train it for so many epoches as I was essentially just fine-tuning Darknet-53 for a simpler task. We can see that during the last tens of epoches, the validation error and accuracy were just jumping back and forth in a small neighbourhood.
 
-You can find the code for training the feature extractor in train_extractor.ipynb.
+You can find the training details in [train_extractor.ipynb](/code/train_extractor.ipynb).
 
 ### Detector
 Wheatlo has an almost identical architecture as YOLOv3. The differences are all in the detection layers and are detailed below:
@@ -66,8 +66,10 @@ I trained the detector in 2 stages. In the first stage, all 4 components of the 
 
 In the second stage, I modified the cost function by increasing the weights of the bounding box error to 1.5 and decreasing the weight of the predicted probablity of non-existent object to 0.8. I used the entire training set (except for the first 20 for real-time validation) which has 3353 images. About 80% of the images were augmented. I trained for 40 epoches in the second stage.
 
+You can find the training details in [train_detector.ipynb](/code/train_detector.ipynb) and [train_detector-continue.ipynb](/code/train_extractor-continue.ipynb).
+
 # Final model
-You can build Wheatlo and see it in action by running . 
+You can build Wheatlo and see it in action by running [validate.ipynb](/code/validate.ipynb). 
 The weight file is
 
 # Files
