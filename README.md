@@ -70,7 +70,7 @@ You can find the training details in [train_detector.ipynb](/code/train_detector
 
 # Final model
 You can build Wheatlo and see it in action by running [validate.ipynb](/code/validate.ipynb). 
-The weight file is [here](/code/wheatlo_detector_5anchors_stage2.pth).
+You can find the weight file [here](/code/wheatlo_detector_5anchors_stage2.pth).
 
 # Files
 - cfg/darknet_feature_extractor.cfg (feature extractor's architecture)
@@ -86,6 +86,6 @@ The weight file is [here](/code/wheatlo_detector_5anchors_stage2.pth).
 - code/validate.ipynb (build and try Wheatlo)
 
 
-- code/wheatlo_feature_extractor.pth
-- code/wheatlo_detector_5anchors_stage1.pth
-- code/wheatlo_detector_5anchors_stage2.pth
+- code/wheatlo_feature_extractor.pth (feature extractor's weight file)
+- code/wheatlo_detector_5anchors_stage1.pth (Wheatlo's weight file (initial))
+- code/wheatlo_detector_5anchors_stage2.pth (Wheatlo's weight file (final))
