@@ -41,10 +41,21 @@ I chose these dimensions by inspecting the ground truth bounding boxes of the tr
 
 <img src="/images/yolov3_feature_map.jpg" alt="YOLOv3 Feature maps attributes" class="center">
 
-In Wheatlo, since there is only one class, I took away all the class probablities attributies. The detection layer's feature map therefore has a depth of 5 x 6, which corresponds to the 5 attributes of each of the 6 potential bounding boxes.
+In Wheatlo, since there is only one class, I took away all the class probablities attributies. The detection layer's feature map therefore has a depth of 5 x 5, which corresponds to the 5 attributes of each of the 5 potential bounding boxes.
 
 <img src="/images/wheatlo_feature_map.jpg" alt="Wheatlo Feature maps attributes" class="center">
 </li>
 </ol>
 
 #### Train the  detector
+
+To train the detector, I used a SGD optimizer with a learning rate of 1e-5, a weight decay of 1e-3 and a momentum of 0.9. I did not re-train the feature extractor's layers but only the layers appeneded to it. I initialized the convolutional layers with a Xavier uniform distribution. I used a batch size of 16 and an input dimension of 416.
+
+I trained the detector in two stages. In the first stage, I tried to minimize the following cost function:
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js">
+  </script>
+
+<p>\[y = f(\mathbf{x})\]</p>
